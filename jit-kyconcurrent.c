@@ -21,12 +21,12 @@ struct code_block {
 void subRoutine(void *data)
 {
     struct code_block code = *(struct code_block*)data;
-    printf("tape shfit:%d",code.tapeShift);
+    printf("\n*** child thread ***\n");
     
     char current_char;
     uint8_t *ptr = (code.tape+code.tapeShift);
     for (int i = 0; (current_char = code.code[i]) != '\0'; ++i) {
-        printf("%c",current_char);
+//        printf("%c",current_char);
         
         switch (current_char) {
             case '>':
@@ -153,12 +153,11 @@ void kyinterpreter(const char *const input)
 
             case '{':
                 {
-                    int codeSize = 0;
-                    char tmpChar;
-                    while ((tmpChar = input[i+(codeSize++)]) != '}') {
-                    }              
-
-                    memcpy(subRoutineCode,&input[i],codeSize);
+                    int codeSize = i;
+                    while ((current_char = input[++i]) != '}'); 
+                    //blank
+                    codeSize = i - codeSize;
+                    memcpy(subRoutineCode,&input[i-codeSize],codeSize);
                     subRoutineCode[codeSize] = '\0';
                     memcpy(subRoutineTape,tape,MAX_READ);
                 
