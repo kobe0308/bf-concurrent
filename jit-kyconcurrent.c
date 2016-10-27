@@ -26,7 +26,7 @@ void subRoutine(void *data)
     char current_char;
     uint8_t *ptr = (code.tape+code.tapeShift);
     for (int i = 0; (current_char = code.code[i]) != '\0'; ++i) {
-//        printf("%c",current_char);
+        printf("%c",current_char);
         
         switch (current_char) {
             case '>':
@@ -43,7 +43,7 @@ void subRoutine(void *data)
 
             case '-':
                 --(*ptr);
-
+                break;
             case '.':
                 putchar(*ptr);
                 break;
